@@ -1,71 +1,75 @@
-# Übersicht
+# Overview
 
-Dieses Skript dient dazu, den Status von Veeam-Backup-Jobs zu überprüfen und anhand des letzten Backupsitzungsstatus einen spezifischen Code zurückzugeben. Es kann den Status eines einzelnen Jobs oder aller Jobs in den letzten 24 Stunden auswerten.
+This script is used to check the status of Veeam backup jobs and return a specific code based on the last backup session status. It can evaluate the status of a single job or all jobs that completed in the last 24 hours.
 
-## Voraussetzungen
+## Prerequisites
 
-1. **Veeam Backup & Replication** muss installiert und konfiguriert sein.
-2. Das **Veeam PowerShell-Snap-In** muss verfügbar und zugänglich sein.
-3. Das Skript muss in einer **PowerShell-Umgebung** mit Administratorrechten ausgeführt werden.
-
----
-
-## Funktionsweise des Skripts
-
-- **Prüfen eines spezifischen Backup-Jobs:** Wenn ein Job-Name angegeben wird, überprüft das Skript, ob der Job existiert, und ermittelt den Status der letzten Sitzung.
-- **Prüfen aller Backup-Jobs:** Wenn kein Job-Name angegeben wird, wertet das Skript alle in den letzten 24 Stunden abgeschlossenen Backup-Jobs aus.
-- **Rückgabecodes:**
-  - `0`: Erfolgreich — Keine Fehler oder Warnungen gefunden.
-  - `1`: Warnung — Mindestens ein Job hat eine Warnung gemeldet.
-  - `2`: Fehler — Mindestens ein Job ist fehlgeschlagen.
-  - `3`: Keine Backups gefunden oder der angegebene Job existiert nicht.
+1. **Veeam Backup & Replication** must be installed and configured.
+2. The **Veeam PowerShell Snap-In** must be available and accessible.
+3. The script must be executed in a **PowerShell environment** with administrator privileges.
 
 ---
 
-## Verwendung des Skripts
+## How the Script Works
 
-### 1. PowerShell öffnen
+* **Checking a specific backup job:** If a job name is specified, the script checks whether the job exists and retrieves the status of the last session.
+* **Checking all backup jobs:** If no job name is specified, the script evaluates all backup jobs that completed in the last 24 hours.
+* **Return codes:**
 
-- Stellen Sie sicher, dass die PowerShell-Konsole mit Administratorrechten ausgeführt wird.
+  * `0`: Success — No errors or warnings found.
+  * `1`: Warning — At least one job reported a warning.
+  * `2`: Error — At least one job failed.
+  * `3`: No backups found or the specified job does not exist.
 
-### 2. Skript ausführen
+---
 
-#### a) Überprüfung eines spezifischen Jobs
-Um den Status eines spezifischen Backup-Jobs zu überprüfen, verwenden Sie:
+## Using the Script
+
+### 1. Open PowerShell
+
+* Ensure that the PowerShell console is run with administrator privileges.
+
+### 2. Run the Script
+
+#### a) Check a specific job
+
+To check the status of a specific backup job, use:
 
 ```powershell
-.\BackupStatusChecker.ps1 -JobName "IhrJobName"
+.\Win_Veeam_Backup_Job_Status_Check.ps1 -JobName "YourJobName"
 ```
 
-- Ersetzen Sie `IhrJobName` durch den Namen des Backup-Jobs, den Sie überprüfen möchten.
+* Replace `YourJobName` with the name of the backup job you want to check.
 
-### 3. Rückgabecode interpretieren
+### 3. Interpret the Return Code
 
-Nach der Ausführung gibt das Skript einen der folgenden Rückgabecodes zurück:
+After execution, the script returns one of the following return codes:
 
-| Code | Beschreibung                                         |
-|------|-----------------------------------------------------|
-| `0`  | Alle Backups wurden erfolgreich abgeschlossen.      |
-| `1`  | Mindestens ein Backup hat eine Warnung gemeldet.    |
-| `2`  | Mindestens ein Backup ist fehlgeschlagen.           |
-| `3`  | Keine Backups in den letzten 24 Stunden gefunden oder Job nicht vorhanden.|
+| Code | Description                                             |
+| ---- | ------------------------------------------------------- |
+| `0`  | All backups completed successfully.                     |
+| `1`  | At least one backup reported a warning.                 |
+| `2`  | At least one backup failed.                             |
+| `3`  | No backups found in the last 24 hours or job not found. |
 
 ---
 
-## Beispiele
+## Examples
 
-### Prüfung eines spezifischen Jobs
+### Check a specific job
 
 ```powershell
-.\BackupStatusChecker.ps1 -JobName "TäglichesBackup"
+.\Win_Veeam_Backup_Job_Status_Check.ps1 -JobName "DailyBackup"
 ```
 
-- Wenn der Job `TäglichesBackup` erfolgreich war, gibt das Skript `0` zurück.
-- Wenn der Job fehlgeschlagen ist, gibt es `2` zurück.
+* If the `DailyBackup` job was successful, the script returns `0`.
+* If the job failed, it returns `2`.
 
 ---
 
-## Hinweise
+## Notes
 
-- Das Skript generiert keine visuelle Ausgabe, sondern gibt nur einen numerischen Code zurück.
-- Sie können dieses Skript in Automatisierungspipelines oder Monitoring-Tools integrieren, um den Status Ihrer Backup-Operationen zu überwachen.
+* The script does not generate any visual output; it only returns a numeric code.
+* You can integrate this script into automation pipelines or monitoring tools to monitor the status of your backup operations.
+
+---
