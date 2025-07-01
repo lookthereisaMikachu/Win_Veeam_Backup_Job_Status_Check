@@ -22,7 +22,7 @@
 
 .NOTES
    Version: 1.0
-   Author: Mika Ballhorn
+   Author: lookthereisaMikachu
    Date: 25.11.2024
    This script requires the Veeam PowerShell Snap-In. Usually its already installed together with 
    Veeam Backup and Replication.
